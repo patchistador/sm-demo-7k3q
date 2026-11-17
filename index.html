@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sunkiss Matherm</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Fours, tunnels et radiants infrarouges sur mesure. Inventeur du Thermoréacteur® depuis 1953.">
+<link rel="icon" href="brand/symbol.svg">
+<style>
+:root{
+  color-scheme:light;
+  --white:#FFFFFF; --mist:#F5F5F7; --ink:#1D1D1F; --ink-2:#424245; --grey:#6E6E73; --soft:#86868B; --line:#D2D2D7;
+  --heat:#C2410C; --heat-hover:#9A3412; --red:#D62718; --orange:#F07C00; --yellow:#FFB800;
+  --black:#000000; --black-2:#161617;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --max:1080px; --wide:1280px; --r-tile:28px; --nav:48px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.47;letter-spacing:-.022em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:100;background:var(--white)}
+::selection{background:#FFD8B8;color:var(--ink)}
+img,svg{max-width:100%}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--heat);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
+.wrap{max-width:var(--max);margin-inline:auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.wide{max-width:var(--wide)}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance;font-weight:700}
+.title{font-size:clamp(34px,5vw,56px);line-height:1.07;letter-spacing:-.03em}
+.sub{font-size:clamp(19px,2vw,24px);line-height:1.33;color:var(--grey);font-weight:500;letter-spacing:-.02em;max-width:40ch}
+.center{text-align:center}.center .sub{margin-inline:auto}
+.more{color:var(--heat);font-weight:500;display:inline-flex;align-items:center;gap:4px}
+.more:hover{text-decoration:underline;text-underline-offset:3px}
+.more svg{width:9px;height:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:980px;background:var(--heat);color:#fff;font-size:17px;font-weight:500;transition:background .2s}
+.btn:hover{background:var(--heat-hover)}
+.btn-sm{min-height:28px;padding:0 13px;font-size:12.5px;font-weight:500}
+section{padding-block:clamp(88px,11vw,140px)}
+.mist{background:var(--mist)}
+
+/* ================= navigation ================= */
+.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:90;height:var(--nav);border-bottom:1px solid rgba(0,0,0,.08)}
+/* blur lives on a pseudo-element: backdrop-filter on .gnav itself would trap the fixed flyouts and mobile menu inside the 48px bar */
+.gnav::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
+.gnav-in{height:100%;display:flex;align-items:center;gap:8px;max-width:var(--max);margin-inline:auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.brand{display:flex;align-items:center;gap:9px;flex-shrink:0;margin-right:auto}
+.brand svg{width:26px;height:26px}
+.brand span{font-size:14px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.brand span b{font-weight:400}
+.menu{display:flex;list-style:none;margin:0 auto 0 0;padding:0}
+.menu>li>a{display:flex;align-items:center;height:var(--nav);padding:0 11px;font-size:12.5px;color:rgba(0,0,0,.8);letter-spacing:-.01em;transition:color .2s}
+.menu>li>a:hover,.menu>li.open>a{color:var(--ink)}
+.tools{display:flex;align-items:center;gap:14px}
+.lang{appearance:none;border:0;background:transparent;font:inherit;font-size:12.5px;color:rgba(0,0,0,.8);cursor:pointer;padding:4px}
+.burger{display:none;width:44px;height:44px;margin-right:-12px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+.burger path{transition:transform .3s}
+.mnav-open .burger .l1{transform:translate(0,4px) rotate(45deg);transform-origin:9px 6px}
+.mnav-open .burger .l2{transform:translate(0,-4px) rotate(-45deg);transform-origin:9px 12px}
+
+/* flyout (Apple-style full-width panel) */
+.fly{position:fixed;left:0;right:0;top:calc(var(--nav) + env(safe-area-inset-top,0px));background:var(--white);border-bottom:1px solid rgba(0,0,0,.06);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .24s ease,transform .32s cubic-bezier(.2,.8,.2,1),visibility .24s}
+.menu>li.open .fly{opacity:1;visibility:visible;transform:none}
+.fly-in{max-width:var(--max);margin-inline:auto;padding:40px max(22px,env(safe-area-inset-right,0px)) 56px max(22px,env(safe-area-inset-left,0px));display:flex;gap:72px}
+.fly .col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.fly .lbl{font-size:12px;color:var(--grey);margin-bottom:6px}
+.fly .big a{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.fly .small a{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.fly a:hover{color:var(--heat)}
+.scrim{position:fixed;inset:var(--nav) 0 0;z-index:80;background:rgba(232,232,237,.4);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.scrim.on{opacity:1;visibility:visible}
+
+@media (max-width:900px){
+  .burger{display:grid;place-items:center}
+  .tools .btn{display:none}
+  .menu{position:fixed;inset:calc(var(--nav) + env(safe-area-inset-top,0px)) 0 0;flex-direction:column;background:var(--white);padding:18px max(28px,env(safe-area-inset-right,0px)) 40px max(28px,env(safe-area-inset-left,0px));overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;margin:0}
+  .mnav-open .menu{opacity:1;visibility:visible}
+  .menu>li>a{height:auto;padding:10px 0;font-size:28px;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+  .fly{position:static;opacity:1;visibility:visible;transform:none;border:0;display:none}
+  .menu>li.open .fly{display:block}
+  .fly-in{padding:0 0 18px;flex-direction:column;gap:18px}
+  .fly .big a{font-size:19px}
+  .scrim{display:none}
+}
+
+/* ================= hero ================= */
+.hero{padding-block:clamp(56px,8vw,96px) 0;text-align:center}
+.hero .kick{font-size:clamp(19px,2vw,24px);font-weight:600;color:var(--heat);letter-spacing:-.01em}
+.hero h1{font-size:clamp(48px,8.4vw,96px);line-height:1.02;letter-spacing:-.035em;margin-top:6px}
+.hero .sub{margin:18px auto 0;max-width:30ch}
+.hero .acts{display:flex;justify-content:center;align-items:center;gap:28px;flex-wrap:wrap;margin-top:32px}
+
+.tile{margin:clamp(48px,6vw,72px) auto 0;max-width:var(--max);border-radius:var(--r-tile);background:var(--black);color:#F5F5F7;overflow:hidden;transform-origin:50% 0}
+.screen{position:relative;aspect-ratio:16/9}
+.screen canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair;touch-action:pan-y}
+.screen .tag{position:absolute;font-size:12px;font-weight:600;letter-spacing:.02em;color:rgba(255,255,255,.88);pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.tag-emit{left:50%;top:9%;transform:translateX(-50%)}
+.tag-part{left:50%;top:80%;transform:translateX(-50%)}
+.tag-sim{left:22px;top:20px;padding:5px 10px;border-radius:980px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);text-shadow:none}
+.strip{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;padding:20px 28px 24px;background:var(--black-2);text-align:left}
+.readout .k{font-size:12px;color:var(--soft)}
+.readout .v{font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.readout .v small{font-size:20px;font-weight:600;color:var(--soft);margin-left:4px}
+.scale{width:min(260px,30vw)}
+.scale i{display:block;height:6px;border-radius:3px;background:linear-gradient(90deg,#0B0D2A,#5A1A8A 25%,#C21E56 48%,#F07C00 70%,#FFB800 86%,#FFF6D8)}
+.scale div{display:flex;justify-content:space-between;font-size:11px;color:var(--soft);margin-top:6px;font-variant-numeric:tabular-nums}
+.power{justify-self:end;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:980px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#F5F5F7;font:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s}
+.power:hover{background:rgba(255,255,255,.08)}
+.power .dot{width:8px;height:8px;border-radius:50%;background:#34C759;box-shadow:0 0 0 4px rgba(52,199,89,.2)}
+.power[aria-pressed="false"] .dot{background:var(--soft);box-shadow:none}
+.caption{max-width:var(--max);margin:14px auto 0;font-size:14px;color:var(--grey);text-align:center;padding-inline:22px}
+@media (max-width:700px){
+  .tile{border-radius:20px}
+  .screen{aspect-ratio:4/3}
+  .strip{grid-template-columns:1fr auto;padding:16px 18px 18px}
+  .scale{display:none}
+  .readout .v{font-size:32px}
+  .tag-sim{display:none}
+}
+
+/* ================= statement (scroll-heated words) ================= */
+.statement p{font-size:clamp(30px,4.6vw,56px);line-height:1.12;font-weight:700;letter-spacing:-.03em;max-width:21ch}
+.statement .w{transition:color .15s}
+.statement .num{white-space:nowrap}
+.statement .foot{margin-top:28px;font-size:14px;color:var(--grey);font-weight:400;letter-spacing:-.01em;max-width:none}
+
+/* ================= needs (segmented control) ================= */
+.seg{display:inline-flex;margin:36px auto 0;padding:3px;border-radius:980px;background:#E8E8ED;gap:2px;position:relative;max-width:100%}
+.seg button{position:relative;z-index:1;border:0;background:transparent;font:inherit;font-size:15px;font-weight:500;color:var(--ink-2);min-height:40px;padding:0 20px;border-radius:980px;cursor:pointer;white-space:nowrap;transition:color .2s}
+.seg button[aria-selected="true"]{color:var(--ink)}
+.seg .pill{position:absolute;z-index:0;top:3px;bottom:3px;border-radius:980px;background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.12),0 3px 10px rgba(0,0,0,.06);transition:left .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1)}
+.panel{margin-top:40px;background:var(--white);border-radius:var(--r-tile);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,72px);align-items:center;text-align:left}
+.panel h3{font-size:clamp(28px,3.2vw,40px);line-height:1.1;letter-spacing:-.03em}
+.panel p{margin-top:14px;font-size:19px;color:var(--grey);max-width:38ch}
+.panel .more{margin-top:22px}
+.facts{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.facts li{display:flex;gap:14px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);font-size:17px;font-weight:500}
+.facts li:last-child{border-bottom:1px solid var(--line)}
+.facts svg{flex-shrink:0;width:16px;height:16px;color:var(--heat);transform:translateY(2px)}
+@media (max-width:760px){.panel{grid-template-columns:1fr}.seg button{padding:0 14px;font-size:14px}}
+@media (max-width:560px){.seg{display:flex;width:100%}.seg button{flex:1;padding:0 6px;font-size:13px}}
+
+/* ================= principle ================= */
+.principle{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,6vw,80px);align-items:center}
+.principle .sub{margin-top:18px}
+.compare{margin-top:36px;display:grid;gap:16px;max-width:420px}
+.cmp .row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:7px}
+.cmp .row b{font-weight:600}
+.cmp .row span{color:var(--grey);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:#E8E8ED;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;transform-origin:left}
+.bar .slow{width:100%;background:var(--soft)}
+.bar .fast{width:25%;background:var(--heat)}
+.chart{margin:0;background:var(--mist);border-radius:var(--r-tile);padding:clamp(18px,3vw,32px);min-width:0}
+.chart .scroll{overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:440px;height:auto}
+.chart text{font-family:var(--font);font-size:12px;fill:var(--grey)}
+.chart figcaption{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-size:13px;color:var(--grey)}
+.chart figcaption span{display:inline-flex;align-items:center;gap:8px}
+.chart figcaption i{display:inline-block;width:18px;height:3px;border-radius:2px}
+@media (max-width:860px){.principle{grid-template-columns:1fr}}
+
+/* ================= lineup ================= */
+.lineup{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 28px;margin-top:64px;text-align:center}
+.prod{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
+.prod svg.ico{width:64px;height:64px;color:var(--ink);margin-bottom:10px}
+.prod h3{font-size:21px;letter-spacing:-.02em;line-height:1.2}
+.prod p{font-size:15px;color:var(--grey);max-width:24ch}
+.prod .vars{font-size:12px;color:var(--grey)}
+.prod .more{font-size:15px;margin-top:4px}
+@media (max-width:860px){.lineup{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.lineup{grid-template-columns:1fr}}
+
+/* ================= proof + sectors ================= */
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.fact{background:var(--mist);border-radius:22px;padding:28px 28px 32px;display:flex;flex-direction:column;gap:8px}
+.fact .t{font-size:13px;color:var(--grey);font-weight:500}
+.fact h3{font-size:28px;letter-spacing:-.03em;line-height:1.1}
+.fact p{font-size:15px;color:var(--grey)}
+.sectors{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.sectors a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:22px 4px;border-bottom:1px solid var(--line);font-size:19px;font-weight:600;letter-spacing:-.02em;transition:color .2s}
+.sectors a:nth-child(3n+2),.sectors a:nth-child(3n+3){padding-left:24px}
+.sectors a:hover{color:var(--heat)}
+.sectors a svg{width:9px;height:14px;color:var(--soft);flex-shrink:0;transition:transform .25s,color .2s}
+.sectors a:hover svg{transform:translateX(3px);color:var(--heat)}
+.sec-h{margin-top:88px;font-size:24px;letter-spacing:-.02em}
+.sec-h + .sectors,.sec-h + .marq{margin-top:22px}
+@media (max-width:860px){.proof{grid-template-columns:1fr}.sectors{grid-template-columns:1fr 1fr}.sectors a:nth-child(n){padding-left:4px}.sectors a:nth-child(2n){padding-left:20px}}
+@media (max-width:520px){.sectors{grid-template-columns:1fr}.sectors a:nth-child(n){padding-left:4px}}
+
+/* ================= news + contact ================= */
+.news{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.post{display:flex;flex-direction:column;gap:8px;padding:26px 28px;border-radius:22px;background:var(--mist);transition:background .2s}
+.post:hover{background:#EDEDF0}
+.post time{font-size:13px;color:var(--grey);font-variant-numeric:tabular-nums}
+.post h3{font-size:21px;line-height:1.25;letter-spacing:-.02em}
+.news-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.news-h h2{font-size:32px;letter-spacing:-.03em}
+.close{text-align:center;padding-top:clamp(96px,12vw,150px)}
+.close h2{font-size:clamp(40px,6.4vw,80px);line-height:1.04;letter-spacing:-.035em}
+.close .sub{margin:18px auto 0}
+.close .acts{display:flex;justify-content:center;align-items:center;gap:28px;flex-wrap:wrap;margin-top:34px}
+.tel{margin-top:26px;font-size:15px;color:var(--grey);font-variant-numeric:tabular-nums;user-select:all}
+@media (max-width:700px){.news{grid-template-columns:1fr}}
+
+/* ================= footer ================= */
+footer{background:var(--mist);color:var(--grey);font-size:12px;line-height:1.5;padding-block:40px 28px}
+.f-top{display:flex;align-items:center;gap:10px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.f-top svg{width:22px;height:22px}
+.f-top span{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--ink)}
+.f-top span b{font-weight:400}
+.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-block:24px}
+.f-cols h4{margin:0 0 8px;font-size:12px;font-weight:600;color:var(--ink)}
+.f-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.f-cols a:hover{color:var(--ink);text-decoration:underline}
+.f-cols address{font-style:normal}
+.f-legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+@media (max-width:760px){.f-cols{grid-template-columns:1fr 1fr}}
+
+/* ================= pop layer: the logo's three heat colours, used sparingly ================= */
+/* hero: a heat wave in the logo colours passes through the words every few seconds */
+.heat-txt{background:linear-gradient(100deg,var(--ink) 0 36%,#D62718 43%,#F07C00 50%,#FFB800 56%,var(--ink) 64% 100%);background-size:320% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-box-decoration-break:clone;animation:heatpass 11s cubic-bezier(.45,0,.35,1) 1.8s infinite}
+/* slow sweep (~5 s) so the wave can be watched, then a long rest */
+@keyframes heatpass{0%{background-position:100% 0}45%,100%{background-position:0 0}}
+/* primary CTA: a soft heat ring + sheen, every 4 s */
+.btn-glow{position:relative;isolation:isolate;background-image:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.38) 50%,transparent 65%);background-size:260% 100%;background-position:130% 0;background-repeat:no-repeat;animation:sheen 4s ease-in-out 2.6s infinite}
+.btn-glow::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;animation:ring 4s ease-out 2.6s infinite}
+@keyframes sheen{0%{background-position:130% 0}30%,100%{background-position:-30% 0}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(240,124,0,.5)}35%,100%{box-shadow:0 0 0 16px rgba(240,124,0,0)}}
+/* segmented control: autoplay progress inside the active pill */
+.seg .pill::after{content:"";position:absolute;left:16px;right:16px;bottom:5px;height:2px;border-radius:1px;background:linear-gradient(90deg,#D62718,#F07C00,#FFB800);transform:scaleX(var(--p,0));transform-origin:left}
+.facts li:nth-child(1) svg{color:#D62718}.facts li:nth-child(2) svg{color:#F07C00}.facts li:nth-child(3) svg{color:#E0A100}
+/* spectrum extras */
+#spec .peak{transform-box:fill-box;transform-origin:center}
+#spec .scan-lbl{font-size:12px;font-weight:600;fill:var(--ink)}
+/* lineup: a magnifying lens visits one emitter at a time */
+.ico-w{position:relative;width:104px;height:104px;display:grid;place-items:center;margin-bottom:6px}
+.ico-w::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff 0,#fff 40%,#F2F2F5 100%);border:2px solid #1D1D1F;box-shadow:0 18px 40px -14px rgba(0,0,0,.3),inset 0 0 0 5px rgba(255,255,255,.9);opacity:0;transform:scale(.55);transition:opacity .45s,transform .6s cubic-bezier(.2,1.4,.3,1)}
+.ico-w::after{content:"";position:absolute;width:34px;height:8px;border-radius:4px;background:#1D1D1F;left:86px;top:86px;transform:rotate(45deg) scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.2,1.4,.3,1) .05s}
+.prod .ico{position:relative;z-index:1;margin:0!important;transition:transform .6s cubic-bezier(.2,1.4,.3,1),color .4s}
+.prod.lens .ico-w::before{opacity:1;transform:scale(1)}
+.prod.lens .ico-w::after{transform:rotate(45deg) scaleX(1)}
+.prod.lens .ico{transform:scale(1.32);color:var(--c)}
+.prod h3{transition:color .4s}.prod.lens h3{color:var(--c)}
+/* proof: title underline in the three logo colours, live mini-instruments in the boxes */
+.tri{position:relative;white-space:nowrap}
+.tri::after{content:"";position:absolute;left:0;right:0;bottom:-.06em;height:.16em;background:linear-gradient(#D62718 0 33.3%,#F07C00 33.3% 66.6%,#FFB800 66.6%);border-radius:2px;transform:scaleX(var(--u,1));transform-origin:left}
+.fact{overflow:hidden;position:relative;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.fact:hover{transform:translateY(-6px);box-shadow:0 24px 50px -24px rgba(0,0,0,.25)}
+.viz{height:132px;margin:-4px 0 14px;display:flex;align-items:center}
+.viz svg{width:100%;height:100%;overflow:visible}
+.viz text{font-family:var(--font);fill:var(--grey);font-size:12px}
+.viz .big{font-size:44px;font-weight:700;fill:var(--ink);letter-spacing:-.03em}
+.fact .t{display:inline-flex;align-items:center;gap:8px}
+.fact .t::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c)}
+/* references: two rows scrolling in opposite directions */
+.marq{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.marq+.marq{margin-top:6px}
+.marq-t{display:flex;width:max-content;animation:marq 42s linear infinite}
+.marq.rev .marq-t{animation-direction:reverse;animation-duration:52s}
+.marq:hover .marq-t{animation-play-state:paused}
+.marq-t>*{display:inline-flex;align-items:center;gap:22px;padding-right:22px;white-space:nowrap}
+.marq.big a{display:inline-flex;align-items:center;gap:14px;margin-right:26px;font-size:clamp(26px,3.4vw,40px);font-weight:700;letter-spacing:-.03em;padding-block:14px;transition:color .2s}
+.marq.big a:hover{color:var(--heat)}
+.marq.big a svg{width:28px;height:28px;flex-shrink:0}
+.marq.small span{font-size:clamp(17px,1.8vw,21px);font-weight:500;color:var(--grey);padding-block:10px}
+.marq.small span::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--line)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}.heat-txt{color:var(--ink);background:none}.marq-t{flex-wrap:wrap;width:auto}.marq-t>[aria-hidden]{display:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo" viewBox="0 0 256 256">
+    <path d="M11 160A117 117 0 0 1 245 160H223A95 95 0 0 0 33 160Z" fill="#D62718"/>
+    <path d="M47 160A81 81 0 0 1 209 160H187A59 59 0 0 0 69 160Z" fill="#F07C00"/>
+    <path d="M83 160A45 45 0 0 1 173 160H151A23 23 0 0 0 105 160Z" fill="#FFB800"/>
+    <rect x="11" y="182" width="234" height="24" rx="4" fill="#1D1D1F"/>
+  </symbol>
+  <symbol id="chev" viewBox="0 0 9 14"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="check" viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="gnav" id="gnav">
+  <div class="gnav-in">
+    <a class="brand" href="#" aria-label="Sunkiss Matherm, accueil">
+      <svg aria-hidden="true"><use href="#logo"/></svg>
+      <span>SUNKISS <b>MATHERM</b></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#besoins">Vos besoins</a>
+        <div class="fly"><div class="fly-in">
+          <div class="col big"><p class="lbl">Vos besoins</p>
+            <a href="#besoins" data-tab="0">Nouvelle installation</a>
+            <a href="#besoins" data-tab="1">Amélioration de process</a>
+            <a href="#besoins" data-tab="2">Maintenance</a>
+          </div>
+          <div class="col small"><p class="lbl">Aide</p>
+            <a href="#contact">Demander un essai</a>
+            <a href="#contact">Hotline 24/24</a>
+          </div>
+        </div></div>
+      </li>
+      <li><a href="#technologies">Technologies</a>
+        <div class="fly"><div class="fly-in">
+          <div class="col big"><p class="lbl">Thermoréacteur®</p>
+            <a href="#technologies">Gamme Airless</a>
+            <a href="#technologies">Gamme Air Boost</a>
+            <a href="#technologies">Gamme Air Recycling</a>
+          </div>
+          <div class="col big"><p class="lbl">Radiants infrarouges</p>
+            <a href="#technologies">Catherm®</a>
+            <a href="#technologies">Électriques</a>
+            <a href="#technologies">À gaz</a>
+          </div>
+          <div class="col small"><p class="lbl">Comprendre</p>
+            <a href="#principe">Principe de fonctionnement</a>
+            <a href="#principe">Avantages</a>
+          </div>
+        </div></div>
+      </li>
+      <li><a href="#technologies">Intégrateurs</a>
+        <div class="fly"><div class="fly-in">
+          <div class="col big"><p class="lbl">Intégrateurs</p>
+            <a href="#technologies">Intégrer nos émetteurs</a>
+            <a href="#contact">Devenir partenaire</a>
+          </div>
+        </div></div>
+      </li>
+      <li><a href="#references">Références</a>
+        <div class="fly"><div class="fly-in">
+          <div class="col big"><p class="lbl">Par secteur</p>
+            <a href="#references">Cuisson peinture poudre</a>
+            <a href="#references">Séchage peinture</a>
+            <a href="#references">Ligne peinture intégrée</a>
+          </div>
+          <div class="col big"><p class="lbl">&nbsp;</p>
+            <a href="#references">Textile</a>
+            <a href="#references">Agroalimentaire</a>
+            <a href="#references">Plastiques et PVC</a>
+          </div>
+        </div></div>
+      </li>
+      <li><a href="#preuves">Entreprise</a>
+        <div class="fly"><div class="fly-in">
+          <div class="col big"><p class="lbl">Sunkiss Matherm</p>
+            <a href="#preuves">Historique</a>
+            <a href="#preuves">Atouts</a>
+            <a href="#actualites">Actualités</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div></div>
+      </li>
+    </ul>
+    <div class="tools">
+      <label class="lang-l"><span hidden>Langue</span>
+        <select class="lang" id="lang" aria-label="Langue"><option>FR</option><option>EN</option><option>DE</option><option>ES</option><option>IT</option><option>PL</option></select>
+      </label>
+      <a class="btn btn-sm" href="#contact">Contact</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path class="l1" d="M2 6h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path class="l2" d="M2 12h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="kick" data-hero>Thermoréacteur®</p>
+      <h1 data-hero>Séchez <span class="heat-txt">4× plus vite.</span></h1>
+      <p class="sub" data-hero>L'infrarouge catalytique sans flamme, pour sécher et cuire vos peintures.</p>
+      <div class="acts" data-hero>
+        <a class="btn btn-glow" href="#contact">Étudier mon projet</a>
+        <a class="more" href="#principe">Voir comment ça marche <svg><use href="#chev"/></svg></a>
+      </div>
+    </div>
+    <div class="wrap wide">
+      <div class="tile" id="tile">
+        <div class="screen">
+          <canvas id="thermal" aria-label="Simulation thermique : le Thermoréacteur chauffe une pièce peinte. Passez le pointeur sur l'image pour ajouter de la chaleur."></canvas>
+          <span class="tag tag-sim">Simulation</span>
+          <span class="tag tag-emit">Thermoréacteur®</span>
+          <span class="tag tag-part">Pièce peinte</span>
+        </div>
+        <div class="strip">
+          <div class="readout" aria-live="off"><div class="k">Surface de la pièce</div><div class="v"><span id="tval">20</span><small>°C</small></div></div>
+          <div class="scale" aria-hidden="true"><i></i><div><span>20 °C</span><span>220 °C</span></div></div>
+          <button class="power" id="power" aria-pressed="true"><span class="dot"></span><span id="plabel">Émetteur allumé</span></button>
+        </div>
+      </div>
+      <p class="caption">Simulation illustrative. Passez le pointeur sur l'image pour chauffer la pièce vous-même.</p>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="statement">
+    <div class="wrap">
+      <p id="statement">Jusqu'à <span class="num" data-c="#D62718">4 fois</span> plus rapide que la convection. Un rendement supérieur de <span class="num" data-c="#E8590C">40 %</span>. Et <span class="num" data-c="#C77700">zéro flamme</span> dans votre atelier.</p>
+      <p class="foot">Chiffres annoncés par Sunkiss Matherm et validés en salle d'essai.</p>
+    </div>
+  </section>
+
+  <!-- NEEDS -->
+  <section class="mist center" id="besoins">
+    <div class="wrap">
+      <h2 class="title">Un seul partenaire,<br>du projet à la maintenance.</h2>
+      <div class="seg" role="tablist" aria-label="Vos besoins" id="seg">
+        <span class="pill" aria-hidden="true"></span>
+        <button role="tab" id="t0" aria-controls="p0" aria-selected="true">Nouvelle installation</button>
+        <button role="tab" id="t1" aria-controls="p1" aria-selected="false" tabindex="-1">Amélioration</button>
+        <button role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Maintenance</button>
+      </div>
+      <div class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
+        <div><h3>Un four conçu pour votre pièce.</h3><p>Four de cuisson, tunnel ou cabine : nous le concevons et le fabriquons sur mesure, pour votre peinture et votre cadence.</p><a class="more" href="#contact">Lancer un projet <svg><use href="#chev"/></svg></a></div>
+        <ul class="facts"><li><svg><use href="#check"/></svg>Essais sur vos pièces avant fabrication</li><li><svg><use href="#check"/></svg>Conception et fabrication sur mesure</li><li><svg><use href="#check"/></svg>Mise en service sur votre site</li></ul>
+      </div>
+      <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
+        <div><h3>Plus de cadence sur votre ligne actuelle.</h3><p>Nous ajoutons de l'infrarouge à votre installation existante pour gagner en productivité et consommer moins d'énergie.</p><a class="more" href="#contact">Auditer ma ligne <svg><use href="#chev"/></svg></a></div>
+        <ul class="facts"><li><svg><use href="#check"/></svg>Analyse de votre ligne existante</li><li><svg><use href="#check"/></svg>Temps de séchage réduit</li><li><svg><use href="#check"/></svg>Économies d'énergie</li></ul>
+      </div>
+      <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+        <div><h3>Votre installation, toujours à son meilleur niveau.</h3><p>Une équipe joignable jour et nuit, et un technicien chez vous sous 48 heures.</p><a class="more" href="#contact">Contrat de maintenance <svg><use href="#chev"/></svg></a></div>
+        <ul class="facts"><li><svg><use href="#check"/></svg>Hotline 24 h/24</li><li><svg><use href="#check"/></svg>Intervention sur site sous 48 h</li><li><svg><use href="#check"/></svg>Maintenance préventive</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLE -->
+  <section id="principe">
+    <div class="wrap principle">
+      <div>
+        <h2 class="title">La chaleur va dans la peinture. Pas dans l'air.</h2>
+        <p class="sub">Le Thermoréacteur® émet entre 2 et 10 µm, exactement là où les peintures absorbent l'énergie. Elles sèchent et polymérisent plus vite.</p>
+        <div class="compare" id="compare">
+          <div class="cmp"><div class="row"><b>Convection seule</b><span>durée de référence</span></div><div class="bar"><i class="slow"></i></div></div>
+          <div class="cmp"><div class="row"><b>Thermoréacteur®</b><span>jusqu'à 4× plus court</span></div><div class="bar"><i class="fast"></i></div></div>
+        </div>
+      </div>
+      <figure class="chart">
+        <div class="scroll">
+          <svg id="spec" viewBox="0 0 600 300" role="img" aria-label="Schéma : la courbe d'émission du Thermoréacteur couvre les pics d'absorption d'une peinture organique entre 2 et 10 micromètres.">
+            <g id="grid"></g>
+            <defs>
+              <clipPath id="clipA"><rect id="clipAR" x="0" y="0" width="600" height="300"/></clipPath>
+              <clipPath id="clipE"><rect id="clipER" x="0" y="0" width="600" height="300"/></clipPath>
+              <linearGradient id="emiG" x1="0" x2="1"><stop offset="0" stop-color="#D62718"/><stop offset=".55" stop-color="#F07C00"/><stop offset="1" stop-color="#FFB800"/></linearGradient>
+              <linearGradient id="emiF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F07C00" stop-opacity=".28"/><stop offset="1" stop-color="#FFB800" stop-opacity=".04"/></linearGradient>
+            </defs>
+            <g clip-path="url(#clipE)">
+              <path id="emiArea" fill="url(#emiF)"/>
+            </g>
+            <path id="absLine" clip-path="url(#clipA)" fill="none" stroke="#1D1D1F" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <path id="emiLine" clip-path="url(#clipE)" fill="none" stroke="url(#emiG)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <g id="peaks"></g>
+            <g id="scan" opacity="0">
+              <line id="scanL" y1="34" y2="250" stroke="#1D1D1F" stroke-width="1"/>
+              <circle id="scanD" r="6" fill="#fff" stroke="#C2410C" stroke-width="3"/>
+              <text id="scanT" class="scan-lbl" y="26" text-anchor="middle"></text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>
+          <span><i style="background:#C2410C"></i>Émission du Thermoréacteur®</span>
+          <span><i style="background:#1D1D1F"></i>Absorption d'une peinture</span>
+          <span>Schéma de principe, non mesuré</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- LINEUP -->
+  <section class="mist center" id="technologies">
+    <div class="wrap">
+      <h2 class="title">Quatre familles d'émetteurs.</h2>
+      <p class="sub" style="margin-top:16px">Nous choisissons l'émetteur selon votre produit. Intégrateurs, ils s'ajoutent à vos lignes clé en main.</p>
+      <div class="lineup">
+        <article class="prod" style="--c:#D62718">
+          <div class="ico-w"><svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="8" y="10" width="48" height="12" rx="3"/><path d="M14 32c4-3 8 3 12 0s8 3 12 0 8 3 12 0M14 42c4-3 8 3 12 0s8 3 12 0 8 3 12 0"/><path d="M10 54h44" stroke="#C2410C"/></svg></div>
+          <h3>Thermoréacteur®</h3>
+          <p>Catalytique, sans flamme. Notre invention de 1953.</p>
+          <span class="vars">Airless · Air Boost · Air Recycling</span>
+          <a class="more" href="#">En savoir plus <svg><use href="#chev"/></svg></a>
+        </article>
+        <article class="prod" style="--c:#E8590C">
+          <div class="ico-w"><svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="8" y="10" width="48" height="12" rx="3"/><path d="M16 34h0M26 34h0M36 34h0M46 34h0M21 42h0M31 42h0M41 42h0" stroke-width="4"/><path d="M10 54h44" stroke="#C2410C"/></svg></div>
+          <h3>Catherm®</h3>
+          <p>Radiants catalytiques pour un séchage doux et homogène.</p>
+          <span class="vars">Peinture poudre · liquide</span>
+          <a class="more" href="#">En savoir plus <svg><use href="#chev"/></svg></a>
+        </article>
+        <article class="prod" style="--c:#C77700">
+          <div class="ico-w"><svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="10" width="48" height="12" rx="3"/><path d="M12 38l5-6 5 12 5-12 5 12 5-12 5 12 5-12 5 6"/><path d="M10 54h44" stroke="#C2410C"/></svg></div>
+          <h3>Radiants électriques</h3>
+          <p>Réponse instantanée, réglage fin zone par zone.</p>
+          <span class="vars">Alutherm · Cératherm</span>
+          <a class="more" href="#">En savoir plus <svg><use href="#chev"/></svg></a>
+        </article>
+        <article class="prod" style="--c:#C2410C">
+          <div class="ico-w"><svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="8" y="10" width="48" height="12" rx="3"/><circle cx="20" cy="38" r="4"/><circle cx="32" cy="38" r="4"/><circle cx="44" cy="38" r="4"/><path d="M10 54h44" stroke="#C2410C"/></svg></div>
+          <h3>Radiants à gaz</h3>
+          <p>Forte puissance pour les lignes à haute cadence.</p>
+          <span class="vars">Haute densité de puissance</span>
+          <a class="more" href="#">En savoir plus <svg><use href="#chev"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF + SECTORS -->
+  <section id="preuves">
+    <div class="wrap">
+      <h2 class="title center" style="max-width:18ch;margin-inline:auto">Testé sur <span class="tri" id="tri">vos pièces</span> avant d'être construit.</h2>
+      <p class="sub center" style="margin:16px auto 0">Dans notre salle d'essai, nous validons les performances sur vos produits et vos peintures. Vous voyez le résultat avant d'investir.</p>
+      <div class="proof">
+        <div class="fact" style="--c:#D62718"><div class="viz"><svg viewBox="0 0 300 132" aria-hidden="true">
+            <text class="big" x="0" y="52"><tspan id="yrs">73</tspan> ans</text>
+            <line x1="4" x2="296" y1="96" y2="96" stroke="#D2D2D7" stroke-width="4" stroke-linecap="round"/>
+            <line id="tl" x1="4" x2="296" y1="96" y2="96" stroke="#D62718" stroke-width="4" stroke-linecap="round"/>
+            <circle id="tlD" cx="296" cy="96" r="7" fill="#fff" stroke="#D62718" stroke-width="3"/>
+            <text x="0" y="124">1953</text><text x="300" y="124" text-anchor="end">2026</text>
+          </svg></div>
+          <span class="t">Depuis 1953</span><h3>L'inventeur du Thermoréacteur®.</h3><p>SUNKISS et MATHERM réunis : catalytique, électrique et gaz sous un même toit.</p></div>
+        <div class="fact" style="--c:#F07C00"><div class="viz"><svg viewBox="0 0 300 132" aria-hidden="true">
+            <rect x="40" y="8" width="220" height="14" rx="4" fill="#1D1D1F"/>
+            <g id="rays" stroke="#F07C00" stroke-width="3" stroke-linecap="round" fill="none"><path d="M90 32v20"/><path d="M150 32v20"/><path d="M210 32v20"/></g>
+            <rect x="20" y="64" width="260" height="22" rx="6" fill="#E8E8ED"/>
+            <rect id="part" x="20" y="64" width="260" height="22" rx="6" fill="#D62718"/>
+            <text x="0" y="118" id="testL">Essai validé</text>
+            <g id="ok"><circle cx="286" cy="113" r="11" fill="#34C759"/><path d="M280 113l4 4 8-9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+          </svg></div>
+          <span class="t">Salle d'essai</span><h3>Vos pièces, nos émetteurs.</h3><p>Des essais réels avant toute décision.</p></div>
+        <div class="fact" style="--c:#FFB800"><div class="viz"><svg viewBox="0 0 300 132" aria-hidden="true">
+            <g transform="translate(66 66)"><g id="ticks"></g>
+              <circle r="56" fill="none" stroke="#E8E8ED" stroke-width="2"/>
+              <line id="hand" x1="0" y1="0" x2="0" y2="-44" stroke="#1D1D1F" stroke-width="3" stroke-linecap="round"/>
+              <circle r="5" fill="#FFB800"/></g>
+            <text class="big" x="150" y="62">24/24</text>
+            <g id="chip"><rect x="150" y="80" width="96" height="30" rx="15" fill="#FFF3D1"/><text x="198" y="100" text-anchor="middle" style="fill:#8A5A00;font-weight:600;font-size:13px">sur site 48 h</text></g>
+          </svg></div>
+          <span class="t">Support</span><h3>24 h/24, sur site en 48 h.</h3><p>Une hotline jour et nuit et une équipe qui se déplace.</p></div>
+      </div>
+      <h3 class="sec-h" id="references">Nos références par secteur</h3>
+      <nav class="marq big" aria-label="Références par secteur"><div class="marq-t"><div><a href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Cuisson peinture poudre</a><a href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Séchage peinture</a><a href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Ligne peinture intégrée</a><a href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Textile</a><a href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Agroalimentaire</a><a href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Plastiques et PVC</a></div><div aria-hidden="true"><a href="#" tabindex="-1"><svg aria-hidden="true"><use href="#logo"/></svg>Cuisson peinture poudre</a><a href="#" tabindex="-1"><svg aria-hidden="true"><use href="#logo"/></svg>Séchage peinture</a><a href="#" tabindex="-1"><svg aria-hidden="true"><use href="#logo"/></svg>Ligne peinture intégrée</a><a href="#" tabindex="-1"><svg aria-hidden="true"><use href="#logo"/></svg>Textile</a><a href="#" tabindex="-1"><svg aria-hidden="true"><use href="#logo"/></svg>Agroalimentaire</a><a href="#" tabindex="-1"><svg aria-hidden="true"><use href="#logo"/></svg>Plastiques et PVC</a></div></div></nav>
+      <div class="marq small rev" aria-label="Applications"><div class="marq-t"><div><span>Peinture poudre</span><span>Peinture liquide</span><span>Textiles techniques</span><span>Pneumatiques</span><span>Ameublement</span><span>Médical</span><span>Composites</span><span>Dorage et gratinage</span><span>Biscuits caramélisés</span><span>Films et enduction</span><span>Pièces automobiles</span><span>Préchauffage PVC</span></div><div aria-hidden="true"><span>Peinture poudre</span><span>Peinture liquide</span><span>Textiles techniques</span><span>Pneumatiques</span><span>Ameublement</span><span>Médical</span><span>Composites</span><span>Dorage et gratinage</span><span>Biscuits caramélisés</span><span>Films et enduction</span><span>Pièces automobiles</span><span>Préchauffage PVC</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- NEWS + CLOSE -->
+  <section id="actualites" style="padding-top:0">
+    <div class="wrap">
+      <div class="news-h"><h2>Actualités</h2><a class="more" href="#">Toutes les actualités <svg><use href="#chev"/></svg></a></div>
+      <div class="news">
+        <a class="post" href="#"><time datetime="2026-03-09">9 mars 2026</time><h3>Retrouvez-nous au salon Global Industrie 2026, Paris Nord Villepinte.</h3></a>
+        <a class="post" href="#"><time datetime="2025-03-10">10 mars 2025</time><h3>Sunkiss Matherm accueille un collégien en stage découverte.</h3></a>
+      </div>
+      <div class="close" id="contact">
+        <h2>Parlons de votre ligne.</h2>
+        <p class="sub">Envoyez-nous vos pièces : nous les testons dans notre salle d'essai.</p>
+        <div class="acts">
+          <a class="btn" href="#">Demander un essai</a>
+          <a class="more" href="#">Nous écrire <svg><use href="#chev"/></svg></a>
+        </div>
+        <p class="tel">+33 (0)4 72 27 21 21</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top"><svg aria-hidden="true"><use href="#logo"/></svg><span>SUNKISS <b>MATHERM</b></span></div>
+    <div class="f-cols">
+      <div><h4>Technologies</h4><ul><li><a href="#technologies">Thermoréacteur® Airless</a></li><li><a href="#technologies">Thermoréacteur® Air Boost</a></li><li><a href="#technologies">Thermoréacteur® Air Recycling</a></li><li><a href="#technologies">Radiants Catherm®</a></li><li><a href="#technologies">Radiants électriques</a></li><li><a href="#technologies">Radiants à gaz</a></li></ul></div>
+      <div><h4>Vos besoins</h4><ul><li><a href="#besoins">Nouvelle installation</a></li><li><a href="#besoins">Amélioration de process</a></li><li><a href="#besoins">Maintenance</a></li><li><a href="#technologies">Intégrateurs</a></li></ul></div>
+      <div><h4>Entreprise</h4><ul><li><a href="#preuves">Historique</a></li><li><a href="#preuves">Atouts</a></li><li><a href="#actualites">Actualités</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Nous trouver</h4><address>509 chemin des Vignes<br>ZA Actipole 2B<br>01360 Bressolles, France<br>+33 (0)4 72 27 21 21</address></div>
+    </div>
+    <div class="f-legal"><span>© 2026 Sunkiss Matherm. Tous droits réservés.</span><span>Plan du site · Mentions légales · Confidentialité</span></div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile = () => matchMedia('(max-width: 900px)').matches;
+
+/* ---------- navigation: hover flyouts on desktop, accordion on mobile ---------- */
+(() => {
+  const nav = document.getElementById('gnav'), scrim = document.getElementById('scrim'), burger = document.getElementById('burger');
+  const items = [...document.querySelectorAll('.menu > li')];
+  let closeT;
+  const setOpen = li => { items.forEach(i => i.classList.toggle('open', i === li)); scrim.classList.toggle('on', !!li && !mobile()); };
+  items.forEach(li => {
+    const a = li.firstElementChild;
+    li.addEventListener('pointerenter', () => { if (mobile()) return; clearTimeout(closeT); setOpen(li); });
+    a.addEventListener('focus', () => { if (!mobile()) setOpen(li); });
+    a.addEventListener('click', e => { if (mobile()) { e.preventDefault(); li.classList.toggle('open'); } });
+  });
+  nav.addEventListener('pointerleave', () => { if (!mobile()) closeT = setTimeout(() => setOpen(null), 120); });
+  scrim.addEventListener('pointerenter', () => setOpen(null));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(null); });
+  document.addEventListener('focusin', e => { if (!nav.contains(e.target)) setOpen(null); });
+  burger.addEventListener('click', () => {
+    const o = document.body.classList.toggle('mnav-open'); burger.setAttribute('aria-expanded', o);
+    document.body.style.overflow = o ? 'hidden' : '';
+  });
+  document.querySelectorAll('.fly a, .brand').forEach(a => a.addEventListener('click', () => {
+    setOpen(null); document.body.classList.remove('mnav-open'); burger.setAttribute('aria-expanded', false); document.body.style.overflow = '';
+    if (a.dataset.tab) selectTab(+a.dataset.tab, true);
+  }));
+})();
+
+/* ---------- segmented control: autoplay every 3.5 s; a click stops it, hovering it again resumes ---------- */
+const tabs = [...document.querySelectorAll('#seg [role=tab]')], pill = document.querySelector('#seg .pill'), seg = document.getElementById('seg');
+const DUR = 3500; let cur = 0, auto = !reduce, armed = false, t0 = performance.now(), segVisible = false;
+function placePill(){ const t = tabs[cur]; pill.style.left = t.offsetLeft + 'px'; pill.style.width = t.offsetWidth + 'px'; }
+function selectTab(i, user){
+  cur = i;
+  tabs.forEach((t, j) => { t.setAttribute('aria-selected', i === j); t.tabIndex = i === j ? 0 : -1; document.getElementById('p' + j).hidden = i !== j; });
+  placePill(); t0 = performance.now();
+  if (user) { auto = false; armed = false; pill.style.setProperty('--p', 0); }
+  if (window.gsap && !reduce) gsap.fromTo('#p' + i + ' > *', {y:14, opacity:0}, {y:0, opacity:1, duration:.6, ease:'expo.out', stagger:.06});
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => selectTab(i, true));
+  t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { const n = (i + d + tabs.length) % tabs.length; selectTab(n, true); tabs[n].focus(); } });
+});
+seg.addEventListener('pointerleave', () => { if (!auto && !reduce) armed = true; });
+seg.addEventListener('pointerenter', () => { if (armed) { auto = true; armed = false; t0 = performance.now(); } });
+new IntersectionObserver(([e]) => segVisible = e.isIntersecting).observe(seg);
+let segLast = performance.now();
+(function tick(now){
+  if (auto) {
+    if (!segVisible || document.hidden) t0 += now - segLast; // freeze the timer while off-screen
+    const p = Math.min(1, (now - t0) / DUR); pill.style.setProperty('--p', p);
+    if (p >= 1) selectTab((cur + 1) % tabs.length, false);
+  }
+  segLast = now; requestAnimationFrame(tick);
+})(segLast);
+addEventListener('resize', placePill); document.fonts?.ready.then(placePill); placePill();
+
+/* ---------- thermal camera: 2D heat diffusion, ironbow colour map ---------- */
+(() => {
+  const cv = document.getElementById('thermal'), ctx = cv.getContext('2d');
+  const W = 128, H = 72, T = new Float32Array(W*H), N = new Float32Array(W*H);
+  const off = document.createElement('canvas'); off.width = W; off.height = H;
+  const octx = off.getContext('2d'), img = octx.createImageData(W, H);
+  const stops = [[0,[8,9,26]],[.2,[44,12,104]],[.4,[118,24,140]],[.56,[194,30,86]],[.72,[240,124,0]],[.87,[255,184,0]],[1,[255,246,216]]];
+  const lut = new Uint8ClampedArray(768);
+  for (let i = 0; i < 256; i++) { const v = i/255; let k = 0; while (v > stops[k+1][0]) k++; const [a,ca] = stops[k], [b,cb] = stops[k+1], t = (v-a)/(b-a); for (let c = 0; c < 3; c++) lut[i*3+c] = ca[c] + (cb[c]-ca[c])*t; }
+  // painted part: a trapezoid body panel centred under the emitters
+  const PX = 64, PY = 44, PW = 40, PH = 12;
+  const inPanel = (x, y) => Math.abs(y-PY) < PH && Math.abs(x-PX) < PW - Math.max(0, (PY-PH+3) - y) * 1.2;
+  const mask = new Uint8Array(W*H); let nMask = 0;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (inPanel(x, y)) { mask[y*W+x] = 1; nMask++; }
+  const EM = [[20,44],[52,76],[84,108]], EY0 = 13, EY1 = 16;
+  const near = new Uint8Array(W); EM.forEach(([a,b]) => { for (let x = Math.max(0,a-6); x < Math.min(W,b+6); x++) near[x] = 1; });
+  let on = true, mouse = null;
+  const power = document.getElementById('power'), plabel = document.getElementById('plabel'), tval = document.getElementById('tval');
+  power.addEventListener('click', () => { on = !on; power.setAttribute('aria-pressed', on); plabel.textContent = on ? 'Émetteur allumé' : 'Émetteur éteint'; });
+
+  function step(time){
+    const pulse = .9 + .06*Math.sin(time*.003);
+    for (const [a,b] of EM) for (let x = a; x < b; x++) for (let y = EY0; y < EY1; y++) T[y*W+x] = on ? pulse : T[y*W+x]*.97;
+    if (on) for (let y = EY1; y < H; y++) for (let x = 0; x < W; x++) { const i = y*W+x; const k = mask[i] ? .015 : .0014*near[x]; T[i] += k*(1-T[i]); }
+    if (mouse) { const r = 8; for (let y = Math.max(1, mouse.y-r|0); y < Math.min(H-1, mouse.y+r); y++) for (let x = Math.max(1, mouse.x-r|0); x < Math.min(W-1, mouse.x+r); x++) { const d = ((x-mouse.x)**2 + (y-mouse.y)**2)/(r*r); if (d < 1) { const i = y*W+x; T[i] += (1-d)*.08*(1-T[i]); } } }
+    for (let y = 1; y < H-1; y++) for (let x = 1; x < W-1; x++) { const i = y*W+x; N[i] = T[i] + .22*(T[i-1]+T[i+1]+T[i-W]+T[i+W]-4*T[i]) - (mask[i] ? .0028 : .012)*T[i]; }
+    T.set(N);
+  }
+  function render(){
+    const d = img.data;
+    for (let i = 0; i < W*H; i++) { const k = Math.max(0, Math.min(255, T[i]*255|0))*3; d[i*4] = lut[k]; d[i*4+1] = lut[k+1]; d[i*4+2] = lut[k+2]; d[i*4+3] = 255; }
+    octx.putImageData(img, 0, 0);
+    const dpr = Math.min(devicePixelRatio || 1, 2), w = Math.round(cv.clientWidth*dpr), h = Math.round(cv.clientHeight*dpr);
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(off, 0, 0, w, h);
+    if (mouse) { const sx = w/W, sy = h/H, mx = mouse.x*sx, my = mouse.y*sy, s = 9*dpr;
+      ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = dpr; ctx.beginPath(); ctx.moveTo(mx-s,my); ctx.lineTo(mx+s,my); ctx.moveTo(mx,my-s); ctx.lineTo(mx,my+s); ctx.stroke(); }
+    let s = 0; for (let i = 0; i < W*H; i++) if (mask[i]) s += T[i];
+    tval.textContent = Math.round(20 + s/nMask*200);
+  }
+  const pos = e => { const r = cv.getBoundingClientRect(); return {x:(e.clientX-r.left)/r.width*W, y:(e.clientY-r.top)/r.height*H}; };
+  cv.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' || e.buttons) mouse = pos(e); });
+  cv.addEventListener('pointerdown', e => mouse = pos(e));
+  cv.addEventListener('pointerleave', () => mouse = null);
+  cv.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') mouse = null; });
+  for (let i = 0; i < 220; i++) step(i*16); // warm start: the first frame already tells the story
+  render();
+  let visible = true; new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(cv);
+  (function loop(time){ if (visible && (!reduce || mouse)) { step(time); step(time); render(); } requestAnimationFrame(loop); })(0);
+})();
+
+/* ---------- spectrum schematic: emission 2–10 µm vs organic coating absorption ---------- */
+(() => {
+  const X = um => 48 + (um-1)/10*530, Y = v => 250 - v*210;
+  let h = '';
+  h += `<rect x="${X(2)}" y="34" width="${X(10)-X(2)}" height="216" fill="#F07C00" fill-opacity=".06"/>`;
+  for (let um = 2; um <= 10; um += 2) h += `<line x1="${X(um)}" x2="${X(um)}" y1="34" y2="250" stroke="#D2D2D7"/><text x="${X(um)}" y="272" text-anchor="middle">${um} µm</text>`;
+  h += `<line x1="${X(1)}" x2="${X(11)}" y1="250" y2="250" stroke="#86868B"/>`;
+  h += `<text x="${X(1)}" y="294">Longueur d'onde</text><text x="${X(11)}" y="294" text-anchor="end">Infrarouge moyen</text>`;
+  document.getElementById('grid').innerHTML = h;
+  const g = (x,m,s) => Math.exp(-((x-m)**2)/(2*s*s));
+  const emi = x => (1/(1+Math.exp(-(x-2.1)*4))) * (1/(1+Math.exp((x-10)*2.2))) * (.8 + .2*g(x,4,2.2));
+  const abs = x => Math.min(.95, .1 + .78*g(x,3.4,.18) + .62*g(x,5.8,.22) + .45*g(x,6.9,.35) + .7*g(x,8.1,.5) + .5*g(x,9.4,.4) + .25*g(x,2.9,.25));
+  const path = f => { let d = ''; for (let x = 1.2; x <= 10.9; x += .04) d += (d ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(f(x)).toFixed(1); return d; };
+  const e = path(emi);
+  document.getElementById('emiLine').setAttribute('d', e);
+  document.getElementById('emiArea').setAttribute('d', e + `L${X(10.9)},250L${X(1.2)},250Z`);
+  document.getElementById('absLine').setAttribute('d', path(abs));
+  const PK = [[3.4,'#D62718'],[5.8,'#F07C00'],[6.9,'#FFB800'],[8.1,'#D62718'],[9.4,'#F07C00']];
+  document.getElementById('peaks').innerHTML = PK.map(([m,c]) => `<circle class="peak" cx="${X(m)}" cy="${Y(abs(m))}" r="6" fill="${c}" stroke="#fff" stroke-width="2.5"/>`).join('');
+  if (!window.gsap || reduce) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const peaks = gsap.utils.toArray('#spec .peak');
+  const scanL = document.getElementById('scanL'), scanD = document.getElementById('scanD'), scanT = document.getElementById('scanT');
+  const o = {um:2};
+  const scanTo = () => { const x = X(o.um); scanL.setAttribute('x1', x); scanL.setAttribute('x2', x); scanD.setAttribute('cx', x); scanD.setAttribute('cy', Y(emi(o.um))); scanT.setAttribute('x', x); scanT.textContent = o.um.toFixed(1).replace('.', ',') + ' µm';
+    peaks.forEach((pk, i) => gsap.set(pk, {scale: 1 + .9*Math.max(0, 1 - Math.abs(o.um - PK[i][0]) / .45)})); };
+  gsap.set(['#clipAR','#clipER'], {attr:{width:0}}); gsap.set(peaks, {scale:0}); gsap.set('#emiArea', {scaleY:0, transformOrigin:'50% 100%', transformBox:'fill-box'});
+  gsap.timeline({scrollTrigger:{trigger:'#spec', start:'top 78%', once:true}})
+    .to('#clipAR', {attr:{width:600}, duration:1.4, ease:'power2.inOut'})
+    .to('#clipER', {attr:{width:600}, duration:1.6, ease:'power3.inOut'}, '-=.5')
+    .to('#emiArea', {scaleY:1, duration:1.2, ease:'expo.out'}, '<.3')
+    .to(peaks, {scale:1, duration:.6, ease:'back.out(3)', stagger:.12}, '-=.6')
+    .add(() => { scanTo(); gsap.to('#scan', {opacity:1, duration:.4}); gsap.fromTo(o, {um:2}, {um:10, duration:5, ease:'sine.inOut', yoyo:true, repeat:-1, onUpdate:scanTo}); });
+})();
+
+/* ---------- lineup: the lens visits one emitter every 4 s; hovering one holds it ---------- */
+(() => {
+  const prods = [...document.querySelectorAll('.prod')]; if (reduce) return;
+  let i = 0, hold = null, inView = false;
+  const show = p => prods.forEach(q => q.classList.toggle('lens', q === p));
+  prods.forEach(p => { p.addEventListener('pointerenter', () => { hold = p; show(p); }); p.addEventListener('pointerleave', () => { hold = null; }); });
+  new IntersectionObserver(([e]) => inView = e.isIntersecting, {threshold:.3}).observe(document.querySelector('.lineup'));
+  setInterval(() => { if (!inView || hold || document.hidden) return; show(prods[i]); i = (i + 1) % prods.length; }, 4000);
+  setTimeout(() => { if (!hold) show(prods[i++]); }, 900);
+})();
+
+/* ---------- proof: live mini-instruments ---------- */
+(() => {
+  const ticks = document.getElementById('ticks'); let h = '';
+  for (let k = 0; k < 24; k++) { const a = k*15*Math.PI/180, r1 = k % 6 ? 50 : 46; h += `<line x1="${(Math.sin(a)*r1).toFixed(1)}" y1="${(-Math.cos(a)*r1).toFixed(1)}" x2="${(Math.sin(a)*55).toFixed(1)}" y2="${(-Math.cos(a)*55).toFixed(1)}" stroke="${k % 6 ? '#C7C7CC' : '#1D1D1F'}" stroke-width="${k % 6 ? 1.5 : 2.5}" stroke-linecap="round"/>`; }
+  ticks.innerHTML = h;
+  if (!window.gsap || reduce) return;
+  const st = {trigger:'.proof', start:'top 80%'};
+  // 1953 → 2026 timeline and year counter
+  const y = {v:0}, yrs = document.getElementById('yrs');
+  gsap.timeline({scrollTrigger:st, repeat:-1, repeatDelay:4})
+    .fromTo('#tl', {attr:{x2:4}}, {attr:{x2:296}, duration:2.2, ease:'power2.inOut'})
+    .fromTo('#tlD', {attr:{cx:4}}, {attr:{cx:296}, duration:2.2, ease:'power2.inOut'}, 0)
+    .fromTo(y, {v:0}, {v:73, duration:2.2, ease:'power2.inOut', onUpdate:() => yrs.textContent = Math.round(y.v)}, 0);
+  // test bench: the part heats through the logo colours, then passes
+  const testL = document.getElementById('testL');
+  gsap.timeline({scrollTrigger:st, repeat:-1, repeatDelay:2})
+    .set('#ok', {opacity:0, scale:.4, transformOrigin:'286px 113px'}).add(() => testL.textContent = 'Essai en cours…')
+    .fromTo('#part', {attr:{width:0}, fill:'#C7C7CC'}, {attr:{width:260}, duration:1.2, ease:'power2.out'})
+    .fromTo('#rays path', {opacity:.2}, {opacity:1, duration:.3, stagger:.1, repeat:5, yoyo:true}, 0)
+    .to('#part', {keyframes:[{fill:'#D62718'},{fill:'#F07C00'},{fill:'#FFB800'}], duration:1.8, ease:'none'}, .4)
+    .add(() => testL.textContent = 'Essai validé')
+    .to('#ok', {opacity:1, scale:1, duration:.5, ease:'back.out(3)'});
+  // 24/24 dial and on-site chip
+  gsap.to('#hand', {rotation:360, svgOrigin:'0 0', duration:8, ease:'none', repeat:-1});
+  gsap.to('#chip', {scale:1.06, transformOrigin:'198px 95px', duration:.8, ease:'sine.inOut', yoyo:true, repeat:-1, repeatDelay:1.2});
+  // title underline draws in the three logo colours
+  gsap.fromTo('#tri', {'--u':0}, {'--u':1, duration:1.2, ease:'expo.out', scrollTrigger:{trigger:'#tri', start:'top 85%'}});
+  gsap.from('.fact', {y:40, duration:1, ease:'expo.out', stagger:.12, scrollTrigger:st});
+})();
+
+/* ---------- motion: one load sequence, one scroll-heated statement ---------- */
+(() => {
+  // split statement into words (numbers stay whole)
+  const st = document.getElementById('statement');
+  [...st.childNodes].forEach(n => {
+    if (n.nodeType === 3) { const f = document.createDocumentFragment(); n.textContent.split(/(\s+)/).forEach(p => { if (!p) return; if (/^\s+$/.test(p)) f.append(p); else { const s = document.createElement('span'); s.className = 'w'; s.textContent = p; f.append(s); } }); n.replaceWith(f); }
+    else n.classList.add('w');
+  });
+  if (!window.gsap || reduce) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('[data-hero]', {y:28, filter:'blur(6px)', duration:1.2, ease:'expo.out', stagger:.08});
+  gsap.from('#tile', {y:60, duration:1.4, ease:'expo.out', delay:.25});
+  gsap.fromTo('#tile', {scale:.94}, {scale:1, ease:'none', scrollTrigger:{trigger:'#tile', start:'top 95%', end:'top 25%', scrub:true}});
+
+  const words = st.querySelectorAll('.w');
+  gsap.set(words, {color:'#C7C7CC'});
+  ScrollTrigger.create({trigger:st, start:'top 80%', end:'bottom 45%', scrub:true, onUpdate(self){
+    const lit = Math.round(self.progress * words.length);
+    words.forEach((w, i) => w.style.color = i < lit ? (w.dataset.c || '#1D1D1F') : '#C7C7CC');
+  }});
+
+  gsap.from('#compare .bar i', {scaleX:0, duration:1.4, ease:'expo.out', stagger:.2, scrollTrigger:{trigger:'#compare', start:'top 88%'}});
+})();
+</script>
+</body>
+</html>
